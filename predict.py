@@ -17,7 +17,7 @@ from wettbewerb import get_3montages
 # Pakete aus dem Vorlesungsbeispiel
 import mne
 from scipy import signal as sig
-import ruptures as rpt
+# import ruptures as rpt
 
 
 
