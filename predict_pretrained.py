@@ -9,7 +9,7 @@ Skript testet das vortrainierte Modell
 """
 
 
-from predict import predict_labels
+# from predict import predict_labels
 from wettbewerb import EEGDataset, save_predictions
 import argparse
 import time
