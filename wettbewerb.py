@@ -6,7 +6,7 @@ Funktionen zum Laden und Speichern der Dateien
 """
 __author__ = "Maurice Rohr und Dirk Schweickard"
 
-from typing import List, Tuple, Dict, Any
+# from typing import List, Tuple, Dict, Any
 import csv
 import scipy.io as sio
 import numpy as np
