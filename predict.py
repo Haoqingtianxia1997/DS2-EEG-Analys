@@ -8,7 +8,7 @@ Skript testet das vortrainierte Modell
 """
 
 
-import numpy as np
+# import numpy as np
 import json
 import os
 from typing import List, Tuple, Dict, Any
