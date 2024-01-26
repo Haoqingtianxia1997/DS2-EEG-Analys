@@ -9,15 +9,15 @@ import sys
 
 
 # ==================================== caculate PSD ========================================
-def caculate_PSD(raw_data: Raw) -> Any:
+def caculate_PSD(raw_data: Raw, **kwargs) -> Any:
     mne.set_log_level('WARNING')
-    spectrum =raw_data.compute_psd()
+    spectrum = raw_data.compute_psd()
     mne.set_log_level('INFO')
     return spectrum
 
 
 # ==================================== plot PSD in frequency domain ========================
-def plot_psd(raw_data: Raw,save_dir:str = 'pictures') -> None:
+def plot_psd(raw_data: Raw, save_dir: str = 'pictures', **kwargs) -> None:
     """
     plot and save psd result
     save_dir: the path you want to save pictures
@@ -33,7 +33,7 @@ def plot_psd(raw_data: Raw,save_dir:str = 'pictures') -> None:
 
 
 # ==================================== show psd topomap ====================================
-def plot_psd_topomap(raw_data: Raw,save_dir:str = 'pictures') -> None:
+def plot_psd_topomap(raw_data: Raw, save_dir: str = 'pictures', **kwargs) -> None:
     """
     plot and save psd topomap
     save_dir: the path you want to save pictures
@@ -49,7 +49,7 @@ def plot_psd_topomap(raw_data: Raw,save_dir:str = 'pictures') -> None:
 
 
 # ==================================== plot eeg signals ====================================
-def plot_eeg_signal(raw: Raw, channels_to_extract:List[str],save_dir:str = 'pictures') -> None:
+def plot_eeg_signal(raw: Raw, channels_to_extract: List[str], save_dir: str = 'pictures', **kwargs) -> None:
     """
     plot and save all eeg signals
     save_dir: the path you want to save pictures
@@ -59,44 +59,42 @@ def plot_eeg_signal(raw: Raw, channels_to_extract:List[str],save_dir:str = 'pict
     fs = raw.info['sfreq']
     if not os.path.exists(f'{save_dir}/eeg_signals'):
         os.makedirs(f'{save_dir}/eeg_signals')
-    # 遍历每个通道并绘制图像
     for i in range(len(eeg_data)):
-        # 计算时间轴
+        # count time axis
         t = np.arange(eeg_data.shape[1]) / fs
         
-        # 创建图像，这里设置了一个固定的单位长度，比如每个单位长度代表1秒
-        # 您可以根据需求调整这个长度
-        unit_per_second = 5  # 这个值可以根据您的具体需求来设置
-        fig_width = t[-1] / unit_per_second  # 图片宽度随时间长度变化
-        fig_height = 4 # 图片高度固定
+        # Here, a fixed unit length is set, for example, 
+        # each unit length represents 1 second. You can adjust this length according to your needs.
+        unit_per_second = 5 
+        # picture width changing with the time axis
+        fig_width = t[-1] / unit_per_second
+        # heigt of picture is fixed
+        fig_height = 4 
         plt.figure(figsize=(fig_width, fig_height))
         
-        plt.plot(t, eeg_data[i, :])  # 使用时间作为横轴
+        plt.plot(t, eeg_data[i, :])
         plt.title(f'EEG Channel {channels_to_extract[i]}')
         plt.xlabel('Time (s)')
         plt.ylabel('Amplitude')
 
-        # 设置横坐标以十秒为单位的刻度
         max_time = t[-1]
         plt.xticks(np.arange(0, max_time, 10))
         
-        # 添加网格
         plt.grid(True)
         
-        # 在每个横向网格线上显示对应的纵坐标读数
+        # Display the corresponding vertical coordinate readings on each horizontal grid line.
         plt.tick_params(axis='y', which='both', labelleft=True, labelright=True)
 
-        # 设置x轴的限制以消除0时刻之前的空白
         plt.xlim(left=0)
-        # 设置x轴的限制以消除最后时刻之后的空白
         plt.xlim(right=t[-1])
-        
-        # 使用 tight_layout 减少留白
         plt.tight_layout()
-        # 保存图像，这里使用了一个固定的纵向分辨率，而横向分辨率会随时间长度变化
-        dpi = 100  # 每英寸点数，这个也可以根据需要调整
+        
+        # The image is saved with a fixed vertical resolution, 
+        # while the horizontal resolution changes according to the duration of time.
+        # Dots per inch, this can also be adjusted as needed.
+        dpi = 100 
         plt.savefig(os.path.join(f'{save_dir}/eeg_signals', f'Channel_{i+1}.png'), dpi=dpi)
-        plt.close()  # 关闭图像，以免占用太多内存
+        plt.close()
     mne.set_log_level('INFO')
-    print(t[-1],fs,len(eeg_data),5)
+    print(t[-1], fs, len(eeg_data),5)
     return None
