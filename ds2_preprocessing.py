@@ -26,7 +26,7 @@ from mne.io import Raw
 #     return raw_data
 
 
-def data_rereference(raw_data: Raw, montage: str = 'LE') -> Any:
+def data_rereference(raw_data: Raw, montage: str = 'LE', **kwargs) -> Any:
     """
     This function is to reference SINGLE raw EEG signals with Linked-Ear-reference system.
     T7 and T8 are set to be the Ear-channels.
@@ -66,8 +66,7 @@ def data_rereference(raw_data: Raw, montage: str = 'LE') -> Any:
         print('No matching method!')
         return 0
     
-# 调用这个
-def data_rereference_judge(raw: Any , montage: str = 'LE') -> Any:
+def data_rereference_judge(raw: Any, montage: str = 'LE', **kwargs) -> Any:
     """
     This function is to reference the SINGLE eeg signal or a eeg signal list
     T7 and T8 are set to be the Ear-channels.
@@ -90,7 +89,8 @@ def data_rereference_judge(raw: Any , montage: str = 'LE') -> Any:
         print ('No match Type! Must be a List or a Raw data')
         return
 # ==================================== filtering ===========================================
-def data_filtering(data_wait_for_filter: Raw, band_pass_frequency:Tuple[float,float] = (1.0,35.0)) -> Raw:
+def data_filtering(data_wait_for_filter: Raw, 
+                   band_pass_frequency: Tuple[float,float] = (1.0,35.0), **kwargs) -> Raw:
     """
     This function will use the bandpss filter on the SINGLE eeg signal
     Input:
@@ -103,9 +103,10 @@ def data_filtering(data_wait_for_filter: Raw, band_pass_frequency:Tuple[float,fl
     data_wait_for_filter.filter(l_freq=low_frequency, h_freq=high_frequency)
     mne.set_log_level('INFO')
     return data_wait_for_filter
+                       
 
-# 调用这个
-def data_filtering_judge(data_wait_for_filter:Any,band_pass_frequency:Tuple[float,float] = (1.0,35.0)) -> Any:
+def data_filtering_judge(data_wait_for_filter: Any, 
+                         band_pass_frequency: Tuple[float,float] = (1.0,35.0), **kwargs) -> Any:
     """
    This function will use the bandpss filter on the SINGLE eeg signal or a eeg signal list
     Input:
@@ -128,7 +129,7 @@ def data_filtering_judge(data_wait_for_filter:Any,band_pass_frequency:Tuple[floa
         return
 
 # ==================================== downsampling ========================================
-def data_downsamping(filtered_data:Raw,target_frequency:float)->Raw:
+def data_downsamping(filtered_data: Raw, target_frequency: float, **kwargs)->Raw:
     """
     This function will down sampling the SINGLE eeg signal
     Input:
@@ -141,8 +142,8 @@ def data_downsamping(filtered_data:Raw,target_frequency:float)->Raw:
     mne.set_log_level('INFO')
     return filtered_data
 
-# 调用这个
-def data_downsamping_judge(filtered_data:Any,target_frequency:float) -> Any:
+
+def data_downsamping_judge(filtered_data: Any, target_frequency: float, **kwargs) -> Any:
     """
     This function will down sampling the SINGLE eeg signal or a eeg signal list
     Input:
@@ -165,7 +166,7 @@ def data_downsamping_judge(filtered_data:Any,target_frequency:float) -> Any:
         return
 
 # ===================================== extract data ========================================
-def channels_extraction(raw_data:Raw, channels_to_extract:List[str]) -> Raw:
+def channels_extraction(raw_data: Raw, channels_to_extract: List[str], **kwargs) -> Raw:
     """
     This function will extract needed channels from the SINGLE eeg signal
     Input:
@@ -173,12 +174,12 @@ def channels_extraction(raw_data:Raw, channels_to_extract:List[str]) -> Raw:
     channels_to_extract: list of channel names that needed
     """
     mne.set_log_level('WARNING')
-    raw_data = raw_data.pick_channels(channels_to_extract,ordered=False)
+    raw_data = raw_data.pick_channels(channels_to_extract, ordered=False)
     mne.set_log_level('INFO')
     return raw_data
 
 # 调用这个
-def channels_extraction_judge(raw: Any, channels_to_extract:List[str]) -> Any:
+def channels_extraction_judge(raw: Any, channels_to_extract: List[str], **kwargs) -> Any:
     """
     This function will extract needed channels from the SINGLE eeg signal or a eeg signal list
     Input:
@@ -206,8 +207,10 @@ def channels_extraction_judge(raw: Any, channels_to_extract:List[str]) -> Any:
 #                            data preprocessing                                #
 ################################################################################
 
-def data_preprocessing(raw_data: Any, montage: str = 'LE', band_pass_frequency:Tuple[float,float] = (1.0,35.0),
-                       target_frequency: float = 250) -> Any:
+def data_preprocessing(raw_data: Any, montage: str = 'LE', band_pass_frequency: Tuple[float,float] = (1.0,35.0), 
+                       target_frequency: float = 250, 
+                       channels_to_extract: List[str] = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'Fz', 'Cz', 'Pz'], 
+                       **kwargs) -> Any:
     """
     Input:
     raw_data: single Raw_data / eeg signal list
@@ -219,10 +222,10 @@ def data_preprocessing(raw_data: Any, montage: str = 'LE', band_pass_frequency:T
     a eeg signal of type raw / multiple eeg signals of type list      
     """
     channels_to_extract = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'Fz', 'Cz', 'Pz']
-    raw_data = data_rereference_judge(raw_data,montage)
-    raw_data = channels_extraction_judge(raw_data,channels_to_extract)
-    data_filted = data_filtering_judge(raw_data,band_pass_frequency)
-    data_downsamped = data_downsamping_judge(data_filted,target_frequency)
+    raw_data = data_rereference_judge(raw_data, montage)
+    raw_data = channels_extraction_judge(raw_data, channels_to_extract)
+    data_filted = data_filtering_judge(raw_data, band_pass_frequency)
+    data_downsamped = data_downsamping_judge(data_filted, target_frequency)
     return data_downsamped
 
 
