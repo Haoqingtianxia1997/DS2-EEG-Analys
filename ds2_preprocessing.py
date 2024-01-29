@@ -100,6 +100,9 @@ def data_filtering(data_wait_for_filter: Raw,
     mne.set_log_level('WARNING')
     low_frequency = band_pass_frequency[0]
     high_frequency = band_pass_frequency[1]
+    meg_picks = mne.pick_types(raw.info, meg=True)
+    freqs = (50, 100)
+    data_wait_for_filter.notch_filter(freqs=freqs, picks=meg_picks)
     data_wait_for_filter.filter(l_freq=low_frequency, h_freq=high_frequency)
     mne.set_log_level('INFO')
     return data_wait_for_filter
@@ -224,8 +227,8 @@ def data_preprocessing(raw_data: Any, montage: str = 'LE', band_pass_frequency: 
     channels_to_extract = ['Fp1', 'Fp2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'Fz', 'Cz', 'Pz']
     raw_data = data_rereference_judge(raw_data, montage)
     raw_data = channels_extraction_judge(raw_data, channels_to_extract)
-    data_filted = data_filtering_judge(raw_data, band_pass_frequency)
-    data_downsamped = data_downsamping_judge(data_filted, target_frequency)
+    data_downsamped = data_downsamping_judge(raw_data, target_frequency)
+    data_filted = data_filtering_judge(data_downsamped, band_pass_frequency)
     return data_downsamped
 
 
