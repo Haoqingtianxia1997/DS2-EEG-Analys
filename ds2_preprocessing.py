@@ -6,6 +6,60 @@ import mne
 from typing import Any,List,Tuple
 from mne.io import Raw
 
+# =================================== remove extremly lout noise ===========================
+def check_amp (raw_data: Raw, **kwargs) -> Raw:
+    '''
+    check if there is a signal channal with amplitude > 100mV
+    ja: remove it to bad channels
+    no: return raw data
+    '''
+    data = raw_data.get_data()
+    bad_channels = []
+    for i, channel_data in enumerate(data):
+        # check wether there is some channels with extremly signal
+        if max(abs(channel_data)) > 1e5:
+            ch_name = raw_data.ch_names[i]
+            bad_channels.append(ch_name)
+    # move it to badchannels
+    raw_data.info['bads'] += bad_channels
+    return raw_data
+
+# ==================================== clean data ==========================================
+def data_checking(raw: Any, label_list: List[int] = [0], **kwargs) -> Any:
+    """
+    Check if there is some channels missing, if Input ist a list, then also give the label list, the recording with missing data will be exclude.
+    if Input is a raw, do not need label list, if there is a missing signal ,return None, else return the raw data
+    """
+    expected_channels = ['EEG FP1-LE', 'EEG FP2-LE', 'EEG F3-LE', 'EEG F4-LE', 'EEG C3-LE', 
+                    'EEG C4-LE', 'EEG P3-LE', 'EEG P4-LE', 'EEG O1-LE', 'EEG O2-LE', 
+                    'EEG F7-LE', 'EEG F8-LE', 'EEG T3-LE', 'EEG T4-LE', 'EEG T5-LE', 
+                    'EEG T6-LE', 'EEG FZ-LE', 'EEG CZ-LE', 'EEG PZ-LE']
+    if isinstance(raw, list):
+        data_without_bad_channels = []
+        label_without_bad_channels = []
+        for i,data in enumerate(raw):
+            data = check_amp (data)
+            label = label_list[i]
+            missing_channels = [ch for ch in expected_channels if ch not in data.info['ch_names']]
+            if len(missing_channels) != 0:
+                continue
+            else:
+                data_without_bad_channels.append(data)
+                label_without_bad_channels.append(label)    
+        return data_without_bad_channels, label_without_bad_channels 
+    
+    elif isinstance(raw, mne.io.edf.edf.RawEDF):
+        raw = check_amp (raw)
+        missing_channels = [ch for ch in expected_channels if ch not in raw.info['ch_names']]
+        if len(missing_channels) != 0:
+            print (f'This data has missing chaneels,{missing_channels}')
+            return None
+        else:
+            return raw
+    else:
+        print ('No match Type! Must be a List or a Raw data')
+        return
+
 # ==================================== rereference =========================================
 # def rename_channels(raw_data: Raw) -> Raw:
 #     """
