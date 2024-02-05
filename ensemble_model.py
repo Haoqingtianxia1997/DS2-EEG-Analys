@@ -21,9 +21,7 @@ class EnsembleModel:
                                                     weights=weights)
 
     def fit(self, X_train, y_train):
-        # 在这里使用集成模型的fit方法来训练模型
         self.ensemble_model.fit(X_train, y_train)
 
     def predict(self, X_test):
-        # 在这里执行预测操作
         return self.ensemble_model.predict(X_test)
