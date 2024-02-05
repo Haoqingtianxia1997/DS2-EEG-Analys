@@ -6,6 +6,16 @@ import pandas as pd
 
 
 def copyfile(srcfile, dstpath):  # Move Functions
+    """
+    Copy a file from a source location (srcfile) to a destination path (dstpath).
+
+    Parameters:
+    srcfile (str): The path to the source file to be copied.
+    dstpath (str): The destination directory where the file will be copied.
+
+    Returns:
+    None
+    """
     if not os.path.isfile(srcfile):
         print("%s not exist!" % (srcfile))
     else:
