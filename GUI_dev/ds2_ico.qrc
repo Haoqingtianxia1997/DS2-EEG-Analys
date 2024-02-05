@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ds2_ico_hd.ico</file>
+    </qresource>
+</RCC>
