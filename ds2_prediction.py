@@ -8,6 +8,17 @@ from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_sc
 
 
 def predict_labels(features: np.ndarray, model: Any) -> Tuple[List[int], List[float]]:
+    """
+    Predicts labels and confidence scores for the given features using the provided model.
+
+    Parameters:
+    - features (np.ndarray): Input features for prediction.
+    - model (Any): Model object used for prediction.
+
+    Returns:
+    - label_list (List[int]): Predicted labels (0 or 1).
+    - conf_list (List[float]): Confidence scores corresponding to the predicted labels.
+    """
     label_list: List[int] = []
     conf_list: List[float] = []
     len_0 = features.shape[0]
@@ -24,6 +35,16 @@ def predict_labels(features: np.ndarray, model: Any) -> Tuple[List[int], List[fl
 
 
 def show_performance(labels_true: np.ndarray, labels_pre: np.ndarray) -> None:
+    """
+    Displays performance metrics based on true and predicted labels.
+
+    Parameters:
+    - labels_true (np.ndarray): True labels.
+    - labels_pre (np.ndarray): Predicted labels.
+
+    Returns:
+    - None
+    """
     auc = accuracy_score(labels_true, labels_pre)
     precision = precision_score(labels_true, labels_pre, average='macro')
     recall = recall_score(labels_true, labels_pre, average='macro')
