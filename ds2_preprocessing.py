@@ -16,7 +16,7 @@ from mne.io import Raw
 #     Output => new raw data that can build easycap-M1 montage
 #     """
 #     mne.set_log_level('WARNING')
-#     raw_data.load_data() # 加载数据
+#     raw_data.load_data() # Load Data
 #     new_name = [chan.replace("EEG ", "").replace("-LE", "").replace("-REF","") for chan in raw_data.info['ch_names']] # EEG T3-LE ->T3
 #     raw_data.rename_channels({old_name: new_name for old_name, new_name in zip(raw_data.info['ch_names'], new_name)})
 #     channels_to_extract = ['FP1', 'FP2', 'F3', 'F4', 'C3', 'C4', 'P3', 'P4', 'O1', 'O2', 'F7', 'F8', 'T3', 'T4', 'T5', 'T6', 'FZ', 'CZ', 'PZ']
@@ -181,7 +181,7 @@ def channels_extraction(raw_data: Raw, channels_to_extract: List[str], **kwargs)
     mne.set_log_level('INFO')
     return raw_data
 
-# 调用这个
+# loading this
 def channels_extraction_judge(raw: Any, channels_to_extract: List[str], **kwargs) -> Any:
     """
     This function will extract needed channels from the SINGLE eeg signal or a eeg signal list
