@@ -36,13 +36,17 @@ def prepare_2_train(path: str) -> Tuple[np.ndarray, np.ndarray]:
         # get labels
         label, onset, offset = eeg_labels
         labels_list = [int(label)]
-        labels_matrix.append(labels_list)
-        # preprocessing
-        patient_raw_pure = ds2_preprocessing.data_preprocessing(raw_data)
-        # get features
-        features = ds2_get_features.feature_extraction(patient_raw_pure)
-        features_list = features.flatten().tolist()
-        features_matrix.append(features_list)
+        # ===================新添加==================
+        if ds2_preprocessing.data_checking(raw_data) != None:
+            labels_matrix.append(labels_list)
+            patient_raw_pure = ds2_preprocessing.data_preprocessing(raw_data)
+            # get features
+            features = ds2_get_features.feature_extraction(patient_raw_pure)
+            features_list = features.flatten().tolist()
+            features_matrix.append(features_list)
+        else:
+            continue
+        # ==================结束 ====================
     labels_df = pd.DataFrame(data=labels_matrix, columns=None, index=None)
     ds2_output.save_df_as_csv(labels_df, labels_path)
     labels = labels_df.values
