@@ -6,14 +6,20 @@ import joblib
 
 
 def feature_extraction(raw: Raw) -> np.ndarray:
-    # 输入: Raw格式的数据
-    # 输出: 一个维度为8的特征向量
+    """
+    Extraction of Features:
+    Parameters:
+    raw (Raw): EEG data in raw format
+
+    Returns:
+    features (np.ndarray): A 1x8 numpy array of extracted features.
+    """
     mne.set_log_level('WARNING')
     stride = 5
     # ----------------------------------feature extraction--------------------------------------#
     _fs = raw.info['sfreq']
     eeg_whole_signal = raw.get_data()
-    _eeg_signals = np.mean(eeg_whole_signal, axis=0)  # 信号所有通道合并
+    _eeg_signals = np.mean(eeg_whole_signal, axis=0)  # All channels of the signal are combined
 
     _, t, Zxx = scipy.signal.stft(x=_eeg_signals,
                                   fs=_fs,
@@ -21,12 +27,12 @@ def feature_extraction(raw: Raw) -> np.ndarray:
                                   noverlap=0.5 * _fs)
     if len(t) > 10:
         energy_lst = []
-        for n in range(0, len(t), stride):  # n是窗口的开端, 中点位置是(n_st+n_end)/2
-            if n + stride < Zxx.shape[1]:  # 注意, 这里舍弃了最后一个不完整的窗口
-                subband_window_delta = Zxx[0:4, n:n + stride]  # 窗口的位置:(0,5),(5,10),..
-                subband_window_theta = Zxx[4:8, n:n + stride]  # 窗口的位置:(0,5),(5,10),..
-                subband_window_alpha = Zxx[8:12, n:n + stride]  # 窗口的位置:(0,5),(5,10),..
-                subband_window_betaa = Zxx[12:30, n:n + stride]  # 窗口的位置:(0,5),(5,10),..
+        for n in range(0, len(t), stride):  # n is the beginning of the window, and the midpoint position is (n_st+n_end)/2
+            if n + stride < Zxx.shape[1]:  # Note that the last incomplete window is discarded here
+                subband_window_delta = Zxx[0:4, n:n + stride]  # Window position: (0,5), (5,10),..
+                subband_window_theta = Zxx[4:8, n:n + stride]  # Window position: (0,5), (5,10),..
+                subband_window_alpha = Zxx[8:12, n:n + stride]  # Window position: (0,5), (5,10),..
+                subband_window_betaa = Zxx[12:30, n:n + stride]  # Window position: (0,5), (5,10),..
 
                 subband_energy_delta = np.sum(np.abs(subband_window_delta) ** 2)  # delta
                 subband_std_delta = np.std(np.abs(subband_window_delta))
@@ -44,10 +50,10 @@ def feature_extraction(raw: Raw) -> np.ndarray:
                                             subband_energy_alpha,
                                             subband_std_alpha,
                                             subband_energy_betaa,
-                                            subband_std_betaa  # ,
-                                            ]))  # 每个窗口的特征组合,在同一个维度上,12维
+                                            subband_std_betaa
+                                            ]))  # Feature combination of each window, in the same dimension, 12 dimensions
 
-        energy_stack = np.vstack(energy_lst)  # 一个通道上的特征
+        energy_stack = np.vstack(energy_lst)  # Features on a channel
         feat_smooth = []
 
         for i in range(energy_stack.shape[1]):
