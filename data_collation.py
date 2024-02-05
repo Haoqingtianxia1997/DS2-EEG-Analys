@@ -5,7 +5,7 @@ import shutil
 import pandas as pd
 
 
-def copyfile(srcfile, dstpath):  # 移动函数
+def copyfile(srcfile, dstpath):  # Move Functions
     if not os.path.isfile(srcfile):
         print("%s not exist!" % (srcfile))
     else:
