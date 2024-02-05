@@ -4,35 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="84611bb1-62fb-40ae-90f3-9d84b292edf7" name="Changes" comment="New submit from szy. Add data_collation.py">
+    <list default="true" id="84611bb1-62fb-40ae-90f3-9d84b292edf7" name="Changes" comment="Newest collated version for model training from szy.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_collation.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/data_collation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ds2_get_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/ds2_get_features.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ds2_input.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/ds2_input.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ds2_output.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/ds2_output.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ds2_plotting.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/ds2_plotting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ds2_prediction.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/ds2_prediction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ds2_preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/ds2_preprocessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ds2_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/ds2_train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_predict_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/features/features_predict_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_test_from_lzz_0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/features/features_test_from_lzz_0.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_test_from_lzz_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/features/features_test_from_lzz_1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_train_from_lzz_0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/features/features_train_from_lzz_0.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/features_train_from_lzz_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/features/features_train_from_lzz_1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labels/labels_predict_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/labels/labels_predict_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labels/labels_test_from_lzz_0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/labels/labels_test_from_lzz_0.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labels/labels_test_from_lzz_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/labels/labels_test_from_lzz_1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labels/labels_train_from_lzz_0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/labels/labels_train_from_lzz_0.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labels/labels_train_from_lzz_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/labels/labels_train_from_lzz_1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_diagnosis.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/main_diagnosis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/main_predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/main_train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/model_from_lzz.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/model/model_from_lzz.pickle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/model_from_lzz_0.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/model/model_from_lzz_0.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/model_from_lzz_1.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/model/model_from_lzz_1.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/model_predict_data" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/model/model_predict_data" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/model_train_from_lzz_1.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/model/model_train_from_lzz_1.pickle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/model_training/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +19,20 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Thomasshii&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="a04ce86e-98c0-4392-8bc7-8856a03a2236" />
+        <option name="url" value="https://github.com/Haoqingtianxia1997/DS2-EEG-Analys.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/model_training/ds2_get_features.py" root0="FORCE_HIGHLIGHTING" />
@@ -94,7 +81,8 @@
       <updated>1705872931443</updated>
       <workItem from="1705872932779" duration="503000" />
       <workItem from="1705873451488" duration="1174000" />
-      <workItem from="1707145009338" duration="1370000" />
+      <workItem from="1707145009338" duration="1452000" />
+      <workItem from="1707147079168" duration="655000" />
     </task>
     <task id="LOCAL-00001" summary="new submit.">
       <option name="closed" value="true" />
@@ -120,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705874614145</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Newest collated version for model training from szy.">
+      <option name="closed" value="true" />
+      <created>1707147051878</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1707147051878</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +126,7 @@
     <MESSAGE value="new submit." />
     <MESSAGE value="New submit from szy. This is the latest version of &lt;train&gt; and &lt;predict&gt;, including &lt;batch predict&gt; and &lt;single diagnosis&gt;." />
     <MESSAGE value="New submit from szy. Add data_collation.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="New submit from szy. Add data_collation.py" />
+    <MESSAGE value="Newest collated version for model training from szy." />
+    <option name="LAST_COMMIT_MESSAGE" value="Newest collated version for model training from szy." />
   </component>
 </project>
