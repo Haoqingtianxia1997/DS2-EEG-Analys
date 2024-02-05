@@ -13,9 +13,9 @@ from typing import List, Tuple, Dict, Any
 
 
 def train(features : np.ndarray, labels: np.ndarray) -> Any:
-    # 输入: features: 包含所有特征的特征矩阵; Labels:包含所有标签的list; 模型路径
-    # 输出: 无
-    # 模型保存到本地
+    # Input: features: feature matrix containing all features; Labels: list containing all labels; model path
+    # Output: None
+    # Save the model locally
     # X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.23,
     #                                                      random_state=15,
     #                                                      shuffle=True)
