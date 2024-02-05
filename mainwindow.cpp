@@ -14,26 +14,23 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
 
-    //信号与槽的链接
+
     connect(ui->newAction, &QAction::triggered, this, &MainWindow::newActionSlot);
     connect(ui->openAction, &QAction::triggered, this, &MainWindow::openActionSlot);
     connect(ui->saveAction, &QAction::triggered, this, &MainWindow::saveActionSlot);
 
-    // 设置进程错误时的信号槽连接
     connect(pythonProcess, &QProcess::errorOccurred, this, &MainWindow::onPythonScriptError);
-    // 设置 Python 脚本完成时的信号槽连接
+
     connect(pythonProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MainWindow::onPythonScriptFinished);
 
 
 
-    // 设置窗口标题
     this->setWindowTitle("综合测试");
 
-    // 设置窗口图标
+
     this->setWindowIcon(QIcon("1704897787850.png"));
 
-    //获取.py文件路径
-    pythonScriptPath = ui->lineEdit->text(); // 请将此路径替换为实际路径
+    pythonScriptPath = ui->lineEdit->text(); 
 
 
 }
@@ -44,7 +41,7 @@ MainWindow::~MainWindow()
 }
 
 //==================================================================================================================================================
-//行为槽函数
+
 void MainWindow::newActionSlot()
 {
     ui->textEdit->clear();
@@ -69,13 +66,13 @@ void MainWindow::openActionSlot()
     else
     {
         QFile file(fileName);
-        if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) // 尝试以只读和文本模式打开文件
+        if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
         {
             QMessageBox::warning(this, "错误", "无法打开文件");
             return;
         }
-        QByteArray ba = file.readAll(); // 读取文件的所有内容到字节数组中
-        ui->textEdit->setText(QString(ba)); // 将字节数组的内容设置到文本编辑器中
+        QByteArray ba = file.readAll(); 
+        ui->textEdit->setText(QString(ba)); 
         file.close();
     }
 }
@@ -108,7 +105,7 @@ void MainWindow::saveActionSlot()
 
 
 //==================================================================================================================================================
-//按钮槽函数
+
 
 void MainWindow::on_SelectButton_clicked()
 {
@@ -122,13 +119,13 @@ void MainWindow::on_SelectButton_clicked()
     else
     {
         QFile file(fileName);
-        if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) // 尝试以只读和文本模式打开文件
+        if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) 
         {
             QMessageBox::warning(this, "错误", "无法打开文件");
             return;
         }
-        QByteArray ba = file.readAll(); // 读取文件的所有内容到字节数组中
-        ui->textEdit->setText(QString(ba)); // 将字节数组的内容设置到文本编辑器中
+        QByteArray ba = file.readAll(); 
+        ui->textEdit->setText(QString(ba)); 
         ui->lineEdit->setText(fileName);
         file.close();
     }
@@ -147,7 +144,7 @@ void MainWindow::on_SaveButton_clicked()
     else
     {
         QFile file(fileName);
-        if(!file.open(QIODevice::WriteOnly | QIODevice::Text)) // 尝试以只写和文本模式打开文件
+        if(!file.open(QIODevice::WriteOnly | QIODevice::Text)) 
         {
             QMessageBox::warning(this, "错误", "无法打开文件");
             return;
@@ -163,14 +160,14 @@ void MainWindow::on_SaveButton_clicked()
 
 void MainWindow::on_ExecuteButton_clicked()
 {
-    QString filePath = ui->lineEdit->text();  // 有一个 QLineEdit 来输入文件路径
+    QString filePath = ui->lineEdit->text(); 
 
     if (!filePath.isEmpty())
     {
-        //如果你有虚拟环境，指定虚拟环境中的 Python 解释器的完整路径
+        
         QString pythonInterpreter = "py环境/venv/Scripts/python.exe";
 
-        // 启动 Python 脚本
+
         pythonProcess->start(pythonInterpreter, QStringList() << filePath);
 
 
@@ -196,27 +193,26 @@ void MainWindow::onPythonScriptFinished(int exitCode, QProcess::ExitStatus exitS
     if (process)
     {
         QString output = process->readAllStandardOutput();
-        QStringList values = output.split(' '); // 假设输出中的值由空格分隔
-
-        // 确保values列表中有足够多的元素
+        QStringList values = output.split(' '); 
+       
         if(values.size() >= 4) {
             ui->lineEdit_a->setText(values.at(0));
             ui->lineEdit_b->setText(values.at(1));
             ui->lineEdit_c->setText(values.at(2));
             ui->lineEdit_d->setText(values.at(3));
 
-//            //自适应版
+//  
 //            ui->imagelabel1->setPixmap(QPixmap("图片/Channel_1.png"));
 //            ui->imagelabel1->resize(ui->scrollArea->rect().size());
 //            ui->scrollAreaWidgetContents->resize(ui->scrollArea->rect().size());
-//            ui->imagelabel1->setScaledContents(true); // 如果需要，可以让图片自适应 QLabel 的大小
+//            ui->imagelabel1->setScaledContents(true); 
 
 //            ui->imagelabel2->setPixmap(QPixmap("图片/Channel_2.png"));
 //            ui->imagelabel2->resize(ui->scrollArea->rect().size());
 //            ui->scrollAreaWidgetContents_3->resize(ui->scrollArea_2->rect().size());
-//            ui->imagelabel2->setScaledContents(true); // 如果需要，可以让图片自适应 QLabel 的大小
+//            ui->imagelabel2->setScaledContents(true); 
 
-            //无损版
+          
             ui->imagelabel1->setPixmap(QPixmap("图片/Channel_1.png"));
             ui->imagelabel1->resize(QPixmap("图片/Channel_1.png").size());
             ui->scrollAreaWidgetContents->resize(ui->imagelabel1->rect().size());
@@ -228,19 +224,19 @@ void MainWindow::onPythonScriptFinished(int exitCode, QProcess::ExitStatus exitS
 
 
         } else {
-            // 错误处理: 输出不符合预期
+           
             QMessageBox::warning(this, "Python Script Error", "Please check your .py file!");
         }
     }
 }
 
 //==================================================================================================================================================
-//将python得到的图片展示到qt界面中
+
 
 
 
 //==================================================================================================================================================
-//检查进程
+
 void MainWindow::onPythonScriptError(QProcess::ProcessError error)
 {
     switch (error) {
@@ -266,14 +262,13 @@ void MainWindow::onPythonScriptError(QProcess::ProcessError error)
 }
 
 //==================================================================================================================================================
-//图片展示
+
 void MainWindow::on_comboBox_activated(int index)
 {
-//    //自适应版
+//
 //    ui->imagelabel1->resize(ui->scrollArea->rect().size());
 //    ui->scrollAreaWidgetContents->resize(ui->scrollArea->rect().size());
-//    ui->imagelabel1->setScaledContents(true); // 如果需要，可以让图片自适应 QLabel 的大小
-
+//    ui->imagelabel1->setScaledContents(true);
 //    switch(index) {
 //            case 0: // 对应 "chl1"
 //                ui->imagelabel1->setPixmap(QPixmap("图片/Channel_1.png"));
@@ -320,10 +315,10 @@ void MainWindow::on_comboBox_activated(int index)
 
 //                break;
 //            default:
-//                ui->imagelabel1->clear(); // 如果没有匹配的选项，清除图片
+//                ui->imagelabel1->clear(); 
 //        }
 
-    //无损版
+
     switch(index) {
             case 0: // 对应 "chl1"
                 ui->imagelabel1->setPixmap(QPixmap("图片/Channel_1.png"));
@@ -392,11 +387,10 @@ void MainWindow::on_comboBox_activated(int index)
 
 void MainWindow::on_comboBox_2_activated(int index)
 {
-//    //自适应版
+//   
 //    ui->imagelabel2->resize(ui->scrollArea_2->rect().size());
 //    ui->scrollAreaWidgetContents_3->resize(ui->scrollArea_2->rect().size());
-//    ui->imagelabel2->setScaledContents(true); // 如果需要，可以让图片自适应 QLabel 的大小
-
+//    ui->imagelabel2->setScaledContents(true); 
 //    switch(index) {
 //        case 0: // 对应 "chl1"
 //            ui->imagelabel2->setPixmap(QPixmap("图片/Channel_2.png"));
@@ -446,7 +440,7 @@ void MainWindow::on_comboBox_2_activated(int index)
 //                ui->imagelabel2->clear(); // 如果没有匹配的选项，清除图片
 //        }
 
-    //无损版
+   
     switch(index) {
             case 0: // 对应 "chl1"
                 ui->imagelabel2->setPixmap(QPixmap("图片/Channel_2.png"));
@@ -504,7 +498,7 @@ void MainWindow::on_comboBox_2_activated(int index)
                 ui->scrollAreaWidgetContents->resize(ui->imagelabel1->rect().size());
                 break;
             default:
-                ui->imagelabel2->clear(); // 如果没有匹配的选项，清除图片
+                ui->imagelabel2->clear(); 
 
             }
 
@@ -527,7 +521,7 @@ void MainWindow::on_clearButton_clicked()
     ui->lineEdit_c->clear();
     ui->lineEdit_d->clear();
 
-    QString folderPath = "图片"; // 设置要清空的文件夹路径
+    QString folderPath = "图片"; 
     QDir dir(folderPath);
 
     dir.setFilter(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
@@ -558,14 +552,13 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     ui->imagelabel1->setMargin(5);
     ui->imagelabel2->setMargin(5);
 
-//    //自适应版
+
 //    ui->imagelabel1->resize(ui->scrollArea->rect().size());
 //    ui->scrollAreaWidgetContents->resize(ui->scrollArea->rect().size());
 //    ui->imagelabel2->resize(ui->scrollArea_2->rect().size());
 //    ui->scrollAreaWidgetContents_3->resize(ui->scrollArea_2->rect().size());
 
-//    ui->imagelabel1->setScaledContents(true); // 如果需要，可以让图片自适应 QLabel 的大小
-//    ui->imagelabel2->setScaledContents(true); // 如果需要，可以让图片自适应 QLabel 的大小
+//    ui->imagelabel1->setScaledContents(true); 
+//    ui->imagelabel2->setScaledContents(true); 
 
-    //无损版
 }
