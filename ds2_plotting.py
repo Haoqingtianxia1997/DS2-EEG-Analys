@@ -10,6 +10,16 @@ import sys
 
 # ==================================== caculate PSD ========================================
 def caculate_PSD(raw_data: Raw, **kwargs) -> Any:
+    """
+    Calculates the Power Spectral Density (PSD) of the raw data.
+
+    Parameters:
+    - raw_data (Raw): The raw data object.
+
+    Returns:
+    - spectrum (Any): The computed power spectral density.
+    """
+    
     mne.set_log_level('WARNING')
     spectrum = raw_data.compute_psd()
     mne.set_log_level('INFO')
