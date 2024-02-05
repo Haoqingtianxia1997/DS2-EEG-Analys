@@ -10,6 +10,15 @@ import joblib
 
 
 def load_signal_edf(folder: str) -> Raw:
+    """
+    Load and preprocess an EDF file containing EEG data.
+
+    Parameters:
+    folder (str): The path to the EDF file.
+
+    Returns:
+    Raw: Preprocessed EEG data in MNE-Python Raw format.
+    """
     channels_template: List[str] = ['EEG FP1', 'EEG FP2', 'EEG F3', 'EEG F4', 'EEG C3', 'EEG C4',
                                     'EEG P3', 'EEG P4', 'EEG O1', 'EEG O2', 'EEG F7', 'EEG F8',
                                     'EEG T3', 'EEG T4', 'EEG T5', 'EEG T6', 'EEG CZ']
@@ -33,6 +42,16 @@ def load_signal_edf(folder: str) -> Raw:
 def load_dataset(folder: str = r'E:\EEG\aaaaaaac') -> Tuple[List[str], List[List[str]],
                                                           List[np.ndarray],  List[float],
                                                           List[str], List[Tuple[int,float,float]]]:
+    """
+    Load and process an entire EEG dataset from a specified folder.
+
+    Parameters:
+    folder (str): The path to the dataset folder.
+
+    Returns:
+    Tuple: Containing lists of IDs, channels, data (as numpy arrays), sampling frequencies,
+           reference systems, and EEG labels for each data entry.
+    """
     ids: List[str] = []
     channels: List[List[str]] = []
     data: List[np.ndarray] = []
@@ -41,6 +60,7 @@ def load_dataset(folder: str = r'E:\EEG\aaaaaaac') -> Tuple[List[str], List[List
     eeg_labels: List[Tuple[int, float, float]] = []
 
     dataset = EEGDataSet_new(folder)
+                                                            
     for item in dataset:
         ids.append(item[0])
         channels.append(item[1])
@@ -107,11 +127,29 @@ class EEGDataSet_new:
 
 
 def load_csv_as_df(path: str) -> Any:
+    """
+    Load a CSV file into a Pandas DataFrame.
+
+    Parameters:
+    path (str): The path to the CSV file.
+
+    Returns:
+    pd.DataFrame: The loaded CSV file as a DataFrame.
+    """
     df = pd.read_csv(path, header=None)
     return df
 
 
 def load_csv_as_ndarray(path: str) -> np.ndarray:
+    """
+    Load a CSV file into a NumPy ndarray.
+
+    Parameters:
+    path (str): The path to the CSV file.
+
+    Returns:
+    np.ndarray: The loaded CSV file as a NumPy ndarray.
+    """
     df = load_csv_as_df(path)
     arr = df.values
     if arr.shape[0] == 0:
@@ -122,11 +160,29 @@ def load_csv_as_ndarray(path: str) -> np.ndarray:
 
 
 def load_model_pickle(path: str) -> Any:
+    """
+    Load a pickled model from a file.
+
+    Parameters:
+    path (str): The path to the pickle file containing the model.
+
+    Returns:
+    Any: The loaded model.
+    """
     with open(path, 'rb') as f:
         model = pickle.load(f)
     return model
 
 
 def load_model_joblib(path: str) -> Any:
+    """
+    Load a model serialized with joblib.
+
+    Parameters:
+    path (str): The path to the joblib file containing the model.
+
+    Returns:
+    Any: The loaded model.
+    """
     model = joblib.load(path)
     return model
