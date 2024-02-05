@@ -50,7 +50,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QString pythonScriptPath; // 存储 Python 脚本的路径
+    QString pythonScriptPath; 
     QProcess *pythonProcess;
 };
 #endif // MAINWINDOW_H
