@@ -39,13 +39,18 @@ def prepare_2_predict(path: str) -> Tuple[np.ndarray, np.ndarray]:
         # get labels
         label, onset, offset = eeg_labels
         labels_list = [int(label)]
-        labels_matrix.append(labels_list)
-        # preprocessing
-        patient_raw_pure = ds2_preprocessing.data_preprocessing(raw_data)
-        # get features
-        features = ds2_get_features.feature_extraction(patient_raw_pure)
-        features_list = features.flatten().tolist()
-        features_matrix.append(features_list)
+        # ===================changed==================
+        if ds2_preprocessing.data_checking(raw_data) != None:
+            labels_matrix.append(labels_list)
+            # preprocessing
+            patient_raw_pure = ds2_preprocessing.data_preprocessing(raw_data)
+            # get features
+            features = ds2_get_features.feature_extraction(patient_raw_pure)
+            features_list = features.flatten().tolist()
+            features_matrix.append(features_list)
+        else:
+            continue
+        # ==================finisch change ====================
     labels_df = pd.DataFrame(data=labels_matrix, columns=None, index=None)
     labels = labels_df.values
     features_df = pd.DataFrame(data=features_matrix, columns=None, index=None)
