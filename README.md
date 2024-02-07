@@ -10,3 +10,6 @@ Supervisor: Fabian Scheidt
 Support: Signal Processing Group of TU Darmstadt / EEG Corpus of Temple University
 ```
 We propose Seizure-Scout, an ensemble learning based machine learning model for non-invasive detection and classification of epileptic seizures in clinical data. A user-friendly graphical interface allows Doctors and Analysts to get diagnostic insights  and support decisions making. Our software product bears the potential to become a prototype for a standard software application and lock-in effects.
+
+##
+![image text](https://github.com/Haoqingtianxia1997/DS2-EEG-Analys/blob/main/GUI/5d4d9a4276aebae087c5b46715ec49f.jpg)
